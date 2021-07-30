@@ -6,6 +6,7 @@ const SigninScreen = ({navigation}) => {
           <View>
                <Text style={{ fontSize: 48}}>SigninScreen</Text>
                <Button title="signup" onPress={() => { navigation.navigate('Signup')}}></Button>
+               <Button title="go to main flow" onPress={() => { navigation.navigate('Home')}}></Button>
           </View>
      );
 }
