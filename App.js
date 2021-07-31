@@ -11,6 +11,8 @@ import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
 import { Provider as AuthProvider } from './src/context/AuthContext';
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -34,17 +36,25 @@ function HomeTabs() {
 }
 
 function App() {
+
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: ""
+  });
+
   return (
     <>
-    <AuthProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false}}>
-          <Stack.Screen name="Signin" component={SigninScreen} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-          <Stack.Screen name="Home" component={HomeTabs} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false}}>
+            <Stack.Screen name="Signin" component={SigninScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Home" component={HomeTabs} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+    </ApolloProvider>
     </>
   );
 }
