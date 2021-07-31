@@ -9,6 +9,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,13 +36,15 @@ function HomeTabs() {
 function App() {
   return (
     <>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false}}>
-        <Stack.Screen name="Signin" component={SigninScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="Home" component={HomeTabs} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false}}>
+          <Stack.Screen name="Signin" component={SigninScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Home" component={HomeTabs} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
     </>
   );
 }
