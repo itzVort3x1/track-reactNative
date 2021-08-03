@@ -39,7 +39,7 @@ function App() {
 
   const client = new ApolloClient({
     cache: new InMemoryCache(),
-    uri: "http://localhost:1337/graphql"
+    uri: "https://club-app-graphql-server.herokuapp.com/graphql"
   });
 
   return (

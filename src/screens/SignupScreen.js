@@ -11,24 +11,23 @@ const SignupScreen = ({navigation}) => {
 
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
-     const [data, setData] = useState([]);
+     const [login, setLogin] = useState([]);
 
+     const {data, loading, error} = useQuery(FETCH_DATA,{
+          fetchPolicy: 'cache-and-network',
+          onCompleted: loadData
+     });
 
-     function FetchData(){
-          useQuery(FETCH_DATA, { onCompleted: loadData})
+     function loadData(data){
+          setLogin(data);
      }
-  
-     function loadData(data) {
-          console.log(data);
-          // setData(data);
-     }
 
-     FetchData()
+     if(loading || error) return null;
 
      return (
           <View style={styles.container}>
                <Spacer>
-                    <Text h3>{data}</Text>
+                    <Text h3>{data.events[0].title}</Text>
                </Spacer>
               <Input 
                     label="Email" 
