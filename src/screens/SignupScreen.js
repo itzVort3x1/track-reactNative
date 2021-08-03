@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
+import { useQuery } from '@apollo/client'
+import { FETCH_DATA } from '../graphql/LoginQueries';
 import Icon from 'react-native-vector-icons/Entypo';
 import Arrowleft from 'react-native-vector-icons/AntDesign'; 
 import Spacer from '../components/Spacer';
@@ -9,11 +11,24 @@ const SignupScreen = ({navigation}) => {
 
      const [email, setEmail] = useState('');
      const [password, setPassword] = useState('');
+     const [data, setData] = useState([]);
+
+
+     function FetchData(){
+          useQuery(FETCH_DATA, { onCompleted: loadData})
+     }
+  
+     function loadData(data) {
+          console.log(data);
+          // setData(data);
+     }
+
+     FetchData()
 
      return (
           <View style={styles.container}>
                <Spacer>
-                    <Text h3>Sign Up</Text>
+                    <Text h3>{data}</Text>
                </Spacer>
               <Input 
                     label="Email" 
